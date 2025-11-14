@@ -82,3 +82,23 @@ button{
 .mistakes{
    color: #f00000;
 }
+
+@media (max-width: 600px){
+   .content{
+      align-items: center;
+   }
+   .info-box{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+   }
+   pre{
+      font-size: 15px;
+   }
+}
+
+@media (max-width: 450px){
+   .content{
+      align-items: center;
+   }
+}
