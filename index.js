@@ -46,7 +46,7 @@ class InputNumber extends React.Component {
     handleUserInput(e) {
         e.preventDefault();
 
-        let userNumber = btoa(this.setNumber.value);
+        let userNumber = btoa(this.userNumber.value);
         this.userNumber.value = "";
         this.props.compareUserInput(userNumber);
     }
@@ -74,7 +74,7 @@ class InputNumber extends React.Component {
         }
         else {
             layout = React.createElement("div", { className: "notif-box" },
-                React.className("div", { className: "notif" }, "Better luck nex time"),
+                React.createElement("div", { className: "notif" }, "Better luck nex time"),
                 React.createElement("br", null),
                 React.createElement("br", null),
                 React.createElement("button", {
@@ -85,3 +85,81 @@ class InputNumber extends React.Component {
         return layout;
     }
 }
+
+
+class App extends React.Component{
+    constructor(){
+        super();
+        this.compareUserInput = this.compareUserInput.bind(this);
+        this.randomGenerate = this.randomGenerate.bind(this);
+        this.resetState = this.resetState.bind(this);
+
+        this.state = {
+            question: btoa(this.randomGenerate(2)),
+            level: {main: 1, sub: 1},
+            wrong: 0
+        };
+    }
+    resetState(){
+        this.setState({
+            question: btoa(this.randomGenerate(2)),
+            level: {main:1, sub : 1},
+            wrong : 0
+        });
+    }
+
+    randomGenerate(digit){
+        let max = Math.pow(10, digit) - 1,
+            min = Math.pow(10, digit -1);
+        return Math.floor(Math.random()* (max-min + 1)+ min);
+    }
+
+    compareUserInput(userNumber){
+        let currQuestion = this.state.question,
+        mainLevel = this.state.level.main,
+        sublevel = this.state.level.sub,
+        wrong = this.state.wrong,
+        digit;
+
+        if(userNumber == currQuestion){
+            if(sublevel < 3){
+                sublevel++;
+            }
+            else if(sublevel == 3){
+                ++mainLevel;
+                sublevel = 1;
+            }
+        }
+        else{
+            ++wrong;
+        }
+        digit = mainLevel + 2;
+
+        this.setState({
+            question: btoa(this.randomGenerate(digit)),
+            level: {main:mainLevel, sub: sublevel},
+            wrong: wrong
+        });
+    }
+    render(){
+        return(
+            React.createElement("div", {className: "main"},
+                React.createElement(GenNumber,{
+                    question: this.state.question,
+                    level: this.state.level,
+                    wrong: this.state.wrong
+                }),
+                React.createElement(InputNumber, {
+                    compareUserInput: this.compareUserInput,
+                    wrong:  this.state.wrong,
+                    onReset: this.resetState
+                }))
+        );
+    }
+}
+
+
+ReactDOM.render(
+    React.createElement(App, null),
+    document.getElementById('app')
+);
