@@ -28,3 +28,57 @@
     height: 100%;
     flex-direction: column;
  }
+
+.input-box, .notif-box{
+     text-align: center;
+ }
+
+input{
+   outline: none;
+   border: none;
+   margin: 0 0 20px 10px;
+   padding-inline-start: 8px 5px 0 0;
+   background: transparent;
+   color: #fff;
+   font-size: 28px;
+   border-bottom: 1px dashed #5b727f;
+}
+
+button{
+   background-color: transparent;
+   border: 1px dashed #fff;
+   outline: none;
+   cursor: pointer;
+   color: #fff;
+   padding: 8px 16px;
+   font-size: 14px;
+   text-transform: uppercase;
+}
+
+.number-box{
+   text-align: center;
+}
+
+.divider{
+   color: #173141;
+   margin: 20px;
+}
+
+.number{
+   font-size: 36px;
+   color: #e28000;
+}
+
+.info-box{
+   padding-bottom: 10px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.level{
+   color: #5cff1c;
+}
+
+.mistakes{
+   color: #f00000;
+}
